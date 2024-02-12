@@ -1,23 +1,66 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [name1, setName1] = useState('');
+  const [name2, setName2] = useState('');
+  const [score, setScore] = useState(null);
+
+  const handleCalculateLove = async () => {
+    try {
+      const response = await axios.post('http://localhost:3030/calculate-love', { name1, name2 });
+      setScore(response.data.score);
+    } catch (err) {
+      setScore(null);
+    }
+  };
+
+  const resetForm = () => {
+    setName1('');
+    setName2('');
+    setScore(null);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="calculator">
+      <h1>Welcome <i className="fas fa-heartbeat" /> </h1>
+      <h2>Calculate your love score</h2>
+      <div>
+        <div className="name-inputs">
+          <input
+            className="yourname name-box"
+            type="text"
+            placeholder="Your Name"
+            value={name1}
+            onChange={(e) => setName1(e.target.value)}
+          />
+          <input
+            className="lovername name-box"
+            type="text"
+            placeholder="Lover's Name"
+            value={name2}
+            onChange={(e) => setName2(e.target.value)}
+          />
+        </div>
+        <button className="buttons" onClick={handleCalculateLove}>
+          <i className="fas fa-heart" /> Submit
+        </button>
+      </div>
+      {score !== null && (
+        <>
+          <p>
+            {name1} and {name2}, your lovescore is {score} %
+          </p>
+          <button className="buttons" onClick={resetForm}>
+            <i className="fas fa-heart-broken" /> Reset
+          </button>
+        </>
+      )}
+      <footer>
+        {/* Add your social media links here */}
+        <p>&copy; 2024</p>
+      </footer>
     </div>
   );
 }
