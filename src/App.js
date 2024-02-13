@@ -9,7 +9,7 @@ function App() {
 
   const handleCalculateLove = async () => {
     try {
-      const response = await axios.post('http://localhost:3030/calculate-love', { name1, name2 });
+      const response = await axios.post('https://love-calc-0i1u.onrender.com/calculate-love', { name1, name2 });
       setScore(response.data.score);
     } catch (err) {
       setScore(null);
