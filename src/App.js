@@ -16,12 +16,6 @@ function App() {
     }
   };
 
-  const resetForm = () => {
-    setName1('');
-    setName2('');
-    setScore(null);
-  };
-
   return (
     <div className="calculator">
       <h1>Welcome <i className="fas fa-heartbeat" /> </h1>
@@ -52,9 +46,6 @@ function App() {
           <p>
             {name1} and {name2}, your lovescore is {score} %
           </p>
-          <button className="buttons" onClick={resetForm}>
-            <i className="fas fa-heart-broken" /> Reset
-          </button>
         </>
       )}
       <footer>
